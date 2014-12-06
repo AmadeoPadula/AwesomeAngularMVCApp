@@ -58,7 +58,7 @@ namespace AwesomeAngularMVCApp.Controllers
                 case SignInStatus.Success:
                     return true;
                 default:
-                    ModelState.AddModelError("", "Invalid login.");
+                    ModelState.AddModelError("", "Invalid login attempt.");
                     return false;
             }
         }
