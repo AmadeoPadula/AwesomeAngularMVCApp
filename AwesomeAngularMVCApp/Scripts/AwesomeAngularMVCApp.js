@@ -2,16 +2,19 @@
 
 AwesomeAngularMVCApp.controller('LandingPageController', LandingPageController);
 AwesomeAngularMVCApp.controller('LoginController', LoginController);
-
+AwesomeAngularMVCApp.factory('LoginFactory', LoginFactory);
 AwesomeAngularMVCApp.factory('AuthHttpResponseInterceptor', AuthHttpResponseInterceptor);
 
-var configFunction = function ($routeProvider, $httpProvider) {
+var configFunction = function ($routeProvider, $httpProvider, $locationProvider) {
+
+    $locationProvider.hashPrefix('!').html5Mode(true);
+
     $routeProvider.
         when('/routeOne', {
             templateUrl: 'routesDemo/one'
         })
         .when('/routeTwo/:donuts', {
-            templateUrl: function(params) { return '/routesDemo/two?donuts=' + params.donuts; }
+            templateUrl: function (params) { return '/routesDemo/two?donuts=' + params.donuts; }
         })
         .when('/routeThree', {
             templateUrl: 'routesDemo/three'
@@ -27,6 +30,5 @@ var configFunction = function ($routeProvider, $httpProvider) {
 
     $httpProvider.interceptors.push('AuthHttpResponseInterceptor');
 }
-configFunction.$inject = ['$routeProvider', '$httpProvider'];
-
+configFunction.$inject = ['$routeProvider', '$httpProvider', '$locationProvider'];
 AwesomeAngularMVCApp.config(configFunction);
